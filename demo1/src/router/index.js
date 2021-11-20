@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
+import {parseHeight} from "element-ui/packages/table/src/util";
 
 //解决路由重复问题
 const originPush = VueRouter.prototype.push
@@ -11,12 +12,23 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'Main',
+    path:"/",
+    redirect: "/login"
+  },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import ("@/views/Login/Login")
+  },
+
+  {
+    path: '/mainPage',
+    name: 'mainPage',
     component: Main,
     children: [
       {
-        path:"/",
+        path:"/mainPage",
         name:"home",
         component:() => import("@/views/Home/Home")
       },
@@ -50,7 +62,8 @@ const routes = [
         name:"play",
         component:() => import("@/views/Play/Play"),
       },
-    ]
+    ],
+    redirect: "/mainPage"
   },
 
 ]

@@ -4,7 +4,7 @@ export default {
         currentMenu:null,
         tagsList:[
             {
-                path:'/',
+                path:'/mainPage',
                 name:'home',
                 label:'首页',
             }

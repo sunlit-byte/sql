@@ -9,7 +9,10 @@
     >
       <h3 v-show="!isCollapse">体操赛事管理系统</h3>
       <h3 v-show="isCollapse">系统</h3>
-      <el-menu-item index="/">
+      <el-menu-item index="/mainPage" @click="clickMenu({path:'/mainPage',name:'home',
+      label:'首页',
+      icon:'s-home',
+      url:'Home/Home'})">
         <i class="el-icon-s-home"></i>
         <span slot="title">首页</span>
       </el-menu-item>
@@ -54,7 +57,7 @@ h3{
 
 <script>
 export default {
-  // name:"CommonAside",
+   name:"CommonAside",
   data() {
     return {
       menu:[

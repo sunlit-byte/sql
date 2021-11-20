@@ -28,7 +28,7 @@ export default {
     }),
     changeMenu(item){
       this.$router.push({name:item.name});
-      this.state.commit("selectMenu",item);
+      this.$store.commit("selectMenu",item);
     },
     handleClose(item,index){
       let length = this.tags.length - 1;

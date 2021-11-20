@@ -7,9 +7,10 @@
         <div class="r-context">
           <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
             <el-select v-model="select" slot="prepend" placeholder="请选择">
-              <el-option label="餐厅名" value="1"></el-option>
-              <el-option label="订单号" value="2"></el-option>
-              <el-option label="用户电话" value="3"></el-option>
+              <el-option label="编号" value="1"></el-option>
+              <el-option label="姓名" value="2"></el-option>
+              <el-option label="性别" value="3"></el-option>
+              <el-option label="年龄" value="4"></el-option>
             </el-select>
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
@@ -49,8 +50,8 @@
             label="操作"
             width="100">
           <template slot-scope="scope">
-            <el-button  type="text" size="small">查看</el-button>
-            <el-button type="text" size="small">编辑</el-button>
+            <el-button  type="text" size="small">修改</el-button>
+            <el-button type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

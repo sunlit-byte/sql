@@ -16,7 +16,7 @@ import Home from "@/views/Home/Home";
 import CommonTag from "@/components/CommonTag";
 export default {
 
-  name:"Main",
+  name:"mainPage",
   components:{CommonAside, CommonHeader,Home,CommonTag},
 };
 </script>

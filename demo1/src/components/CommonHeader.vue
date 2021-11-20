@@ -3,19 +3,19 @@
   <div class="l-container" >
     <el-button plain icon="el-icon-menu" size="mini" @click="handleMenu"></el-button>
     <el-breadcrumb separator="|">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mainPage' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item :to="current.path" v-if="current">{{current.label}}</el-breadcrumb-item>
 
     </el-breadcrumb>
   </div>
   <div class="r-container">
-    <el-dropdown trigger="click" size="mini">
+    <el-dropdown trigger="click" size="mini" @command="handleCommand">
       <span class="el-dropdown-link">
         <img :src="userImg" class="user"/>
       </span>
       <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item>退出登录</el-dropdown-item>
-      <el-dropdown-item>修改密码</el-dropdown-item>
+      <el-dropdown-item command="login">退出登录</el-dropdown-item>
+      <el-dropdown-item command="changePassword">修改密码</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -35,6 +35,9 @@ export default {
   methods:{
     handleMenu(){
       this.$store.commit("collapseMenu");
+    },
+    handleCommand(command){
+      this.$router.push({name:command});
     }
   },
   computed:{
