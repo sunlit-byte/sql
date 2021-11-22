@@ -3,8 +3,8 @@
   <el-row>
     <el-col :span="24">
       <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <img src="../../assets/logo.png"/>
+      <el-carousel-item v-for="item in imgList" :key="item.name">
+        <img :src="item.src"/>
       </el-carousel-item>
     </el-carousel></el-col>
   </el-row>
@@ -76,9 +76,26 @@ export default {
         icon: 'el-icon-more',
         color: '#E6A23C'
 
-      }]
-    };
-  }
+      }],
+
+      imgList:[
+        {
+          name:"page1",
+          src:require("@/assets/page1.jpg"),
+        },
+        {
+          name:"page2",
+          src:require("@/assets/page2.jpg"),
+        },
+        {
+          name:"page3",
+          src:require("@/assets/page3.jpg"),
+        },
+      ]
+    }
+  },
+
+
 }
 </script>
 

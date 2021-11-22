@@ -11,12 +11,12 @@
         <div class="card-farther">
           <el-card class="box-card" shadow="hover">
             <div class="userLogin">用户登录</div>
-            <el-form>
+            <el-form :model="loginForm" ref="loginFrom" >
               <el-form-item >
-                <el-input placeholder="请输入用户名"></el-input>
+                <el-input placeholder="请输入用户名" v-model="loginForm.user"></el-input>
               </el-form-item>
               <el-form-item >
-                <el-input show-password placeholder="请输入密码"></el-input>
+                <el-input show-password placeholder="请输入密码" v-model="loginForm.password"> </el-input>
               </el-form-item>
               <el-form-item>
                 <div class="button-farther">
@@ -40,6 +40,10 @@ export default {
   name: "Login",
   data(){
     return{
+      loginForm:{
+        user:"",
+        password:"",
+      },
       conTop:{
         backgroundImage:'url(' + require('../../assets/bg.jpg') + ')',
         backgroundRepeat:"no-repeat",

@@ -13,7 +13,7 @@
             <el-input v-model.number="playForm.sex"></el-input>
           </el-form-item>
           <el-form-item label="年龄" prop="age">
-            <el-input v-model.number="playForm.age"></el-input>
+            <el-input v-model="playForm.age"></el-input>
           </el-form-item>
           <el-form-item label="身份证号" prop="card_id">
             <el-input v-model.number="playForm.card_id"></el-input>
@@ -43,6 +43,14 @@ export default {
         name:[
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在3到5之间", trigger: 'blur'}
+        ],
+        sex:[
+          {required:true, message:"请输入性别" ,trigger:'blur'},
+          {type: 'enum',enum:['男','女'],message: '只能填男或女' ,trigger: "blur"}
+        ],
+        age:[
+          {required:true,message:"请输入年龄", trigger:'blur'},
+          {type:'enum', enum:['9','10','11','12'],message: "年龄范围为9-12",trigger: "blur"}
         ],
         card_id:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
@@ -96,6 +104,12 @@ export default {
 
 .box-card {
   width: 100%;
+}
+
+.el-form-item{
+  &:last-child{
+    text-align: right;
+  }
 }
 
 
