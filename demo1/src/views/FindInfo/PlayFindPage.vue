@@ -5,15 +5,31 @@
       <div slot="header" class="clearfix">
         <div class="l-context"><span>队员信息</span></div>
         <div class="r-context">
-          <el-input placeholder="请输入内容" v-model="input" class="input-with-select">
-            <el-select v-model="select" slot="prepend" placeholder="请选择">
-              <el-option label="编号" value="1"></el-option>
-              <el-option label="姓名" value="2"></el-option>
-              <el-option label="性别" value="3"></el-option>
-              <el-option label="年龄" value="4"></el-option>
-            </el-select>
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
+          <el-form :inline="true"  class="demo-form-inline" label-width="80px" :model="formSearch">
+            <el-form-item label="编号">
+              <el-input  v-model="formSearch.id" placeholder="编号"></el-input>
+            </el-form-item>
+            <el-form-item label="姓名">
+              <el-input  v-model="formSearch.name" placeholder="姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="性别">
+              <el-select  v-model="formSearch.sex" placeholder="请选择">
+                <el-option label="男" value="man"></el-option>
+                <el-option label="女" value="woman"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="年龄">
+              <el-select  v-model="formSearch.age" placeholder="请选择">
+                <el-option label="9" value="9"></el-option>
+                <el-option label="10" value="10"></el-option>
+                <el-option label="11" value="11"></el-option>
+                <el-option label="12" value="12"></el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
+            </el-form-item>
+          </el-form>
         </div>
       </div>
       <el-table
@@ -23,32 +39,32 @@
         <el-table-column
             prop="id"
             label="编号"
-            width="150">
+            width="160">
         </el-table-column>
         <el-table-column
             prop="name"
             label="姓名"
-            width="120">
+            width="160">
         </el-table-column>
         <el-table-column
             prop="sex"
             label="性别"
-            width="120">
+            width="150">
         </el-table-column>
         <el-table-column
             prop="age"
             label="年龄"
-            width="120">
+            width="150">
         </el-table-column>
         <el-table-column
             prop="card_id"
             label="身份证号"
-            width="245">
+            width="376">
         </el-table-column>
 
         <el-table-column
             label="操作"
-            width="100">
+            width="150">
           <template slot-scope="scope">
             <el-button  type="text" size="small">修改</el-button>
             <el-button type="text" size="small">删除</el-button>
@@ -59,7 +75,7 @@
         <el-pagination
             background
             layout="prev, pager, next"
-            page-size="5"
+            :page-size="5"
             :total="50"
             @current-change="page">
         </el-pagination>
@@ -78,6 +94,9 @@ export default {
     },
     page(currentPage){
       alert(currentPage);
+    },
+    onSubmit(){
+      console.log(this.formSearch);
     }
   },
 
@@ -108,8 +127,12 @@ export default {
         age: '普陀区',
         card_id: '上海市普陀区金沙江路 1518 弄',
       }],
-      input:'',
-      select:"",
+      formSearch:{
+        id:'',
+        name:'',
+        sex:'',
+        age:''
+      }
     }
   }
 }
@@ -135,7 +158,14 @@ export default {
 
 .l-context span{
   color: #3443A9;
-  font-size: 20px;
+  font-size: 30px;
+}
+.l-context{
+  flex: 1;
+}
+
+.r-context{
+  flex: 6;
 }
 .box-card {
   width: 100%;
@@ -146,8 +176,14 @@ export default {
 
 
 <style lang="scss" scoped>
-.el-select {
-  width: 130px;
+.el-form{
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+.el-form-item{
+  display: flex;
+  align-items: center;
 }
 .input-with-select .el-input-group__prepend {
   background-color: #fff;
@@ -155,6 +191,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
+
 
 
 </style>
