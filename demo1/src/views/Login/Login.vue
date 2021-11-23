@@ -11,6 +11,13 @@
         <div class="card-farther">
           <el-card class="box-card" shadow="hover">
             <div class="userLogin">用户登录</div>
+            <div class="userType">
+              <el-radio-group v-model="radio" >
+                <el-radio :label="3">用户</el-radio>
+                <el-radio :label="6">管理员</el-radio>
+                <el-radio :label="9">裁判</el-radio>
+              </el-radio-group>
+            </div>
             <el-form :model="loginForm" ref="loginFrom" >
               <el-form-item >
                 <el-input placeholder="请输入用户名" v-model="loginForm.user"></el-input>
@@ -48,7 +55,8 @@ export default {
         backgroundImage:'url(' + require('../../assets/bg.jpg') + ')',
         backgroundRepeat:"no-repeat",
         backgroundSize: 'cover',
-      }
+      },
+      radio:3
     }
   },
   methods:{
@@ -106,6 +114,21 @@ export default {
   margin-bottom: 40px;
   font-size: 25px;
   color: #409EFF;
+}
+.userType{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+::v-deep .el-radio-group{
+  .el-radio {
+
+    .el-radio__label{
+      font-size: 20px;
+    } }
+
+
 }
 
 
