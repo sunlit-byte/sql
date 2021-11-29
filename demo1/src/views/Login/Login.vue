@@ -61,7 +61,51 @@ export default {
   },
   methods:{
     UserLogin(){
-      this.$router.push({name:"mainPage"})
+      switch (this.radio){
+        case 3:{
+          axios.post("login/team",  this.loginForm)
+              .then(response => {
+                if(response.data.error_code === 0)
+                {
+                  localStorage.setItem("user",this.loginForm.user)
+                  this.$router.push({name:"mainPage"})
+                }
+                else{
+                  alert("登录失败");
+                }
+
+              })
+        }
+        case 6:{
+          axios.post("login/admin", this.loginForm )
+              .then(response => {
+
+                if(response.data.error_code === 0)
+                {
+                  localStorage.setItem("user",this.loginForm.user)
+                  this.$router.push({name:"mainPage"})
+                }
+                else{
+                  alert("登录失败");
+                }
+              })
+        }
+        case 9:{
+          axios.post("login/judger", this.loginForm )
+              .then(response => {
+
+                if(response.data.error_code === 0)
+                {
+                  localStorage.setItem("user",this.loginForm.user)
+                  this.$router.push({name:"mainPage"})
+                }
+                else{
+                  alert("登录失败");
+                }
+              })
+        }
+
+      }
     }
   }
 }

@@ -38,6 +38,7 @@ export default {
         sex:'',
         age:'',
         card_id:'',
+        team_id:localStorage.getItem('user')
       },
       rules:{
         name:[
@@ -64,7 +65,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          axios.post("/addPlayer", this.playForm )
+              .then(response => {
+                return true;
+              })
         } else {
           console.log('error submit!!');
           return false;

@@ -19,7 +19,7 @@
           <el-input v-model.number="form1.tel"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form1')">添加</el-button>
+          <el-button type="primary" @click="submitForm1">添加</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -42,7 +42,7 @@
           <el-input v-model.number="form2.tel"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form2')">添加</el-button>
+          <el-button type="primary" @click="submitForm2">添加</el-button>
 
         </el-form-item>
       </el-form>
@@ -69,7 +69,7 @@
           <el-input v-model.number="form3.tel"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form3')">添加</el-button>
+          <el-button type="primary" @click="submitForm3">添加</el-button>
 
         </el-form-item>
       </el-form>
@@ -93,7 +93,7 @@
           <el-input v-model.number="form4.tel"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('form4')">添加</el-button>
+          <el-button type="primary" @click="submitForm4">添加</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -112,28 +112,28 @@ export default {
         sex:"",
         card_id:"",
         tel:"",
-        type:"leader",
+        team_id:localStorage.getItem('user')
       },
       form2:{
         name:"",
         sex:"",
         card_id:"",
         tel:"",
-        type:"coach",
+        team_id:localStorage.getItem('user')
       },
       form3:{
         name:"",
         sex:"",
         card_id:"",
         tel:"",
-        type:"doctor",
+        team_id:localStorage.getItem('user')
       },
       form4:{
         name:"",
         sex:"",
         card_id:"",
         tel:"",
-        type:"judger",
+        team_id:localStorage.getItem('user')
       },
       rules1:{
         name:[
@@ -198,10 +198,52 @@ export default {
     };
   },
   methods:{
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
+    submitForm1() {
+      this.$refs["form1"].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          axios.post("/addLeader", this.form1 )
+              .then(response => {
+                return true;
+              })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    submitForm2() {
+      this.$refs["form2"].validate((valid) => {
+        if (valid) {
+          axios.post("/addCoach", this.form2 )
+              .then(response => {
+                return true;
+              })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    submitForm3() {
+      this.$refs["form3"].validate((valid) => {
+        if (valid) {
+          axios.post("/addDoctor", this.form3)
+              .then(response => {
+                return true;
+              })
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    submitForm4() {
+      this.$refs["form4"].validate((valid) => {
+        if (valid) {
+          axios.post("/addJudger", this.form4 )
+              .then(response => {
+                return true;
+              })
         } else {
           console.log('error submit!!');
           return false;

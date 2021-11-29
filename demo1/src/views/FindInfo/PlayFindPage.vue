@@ -92,11 +92,32 @@ export default {
     handleClick(row) {
       console.log(row);
     },
+    getData(currentPage){
+      let data ={};
+      data.team_id = localStorage.getItem("user");
+      data.page_size = this.pageSize;
+      data.page_index = currentPage;
+      data.player_id = this.formSearch.id;
+      data.name = this.formSearch.name;
+      data.sex = this.formSearch.sex;
+      data.age = this.formSearch.age;
+
+
+      axios.get("/showPlayers",{
+        params:data
+      })
+      .then(response => {
+        this.tableData = response.data.players;
+      })
+    },
     page(currentPage){
-      alert(currentPage);
+      this.getData(currentPage);
     },
     onSubmit(){
-      console.log(this.formSearch);
+      this.getData(1);
+    },
+    created(){
+      this.getData(1);
     }
   },
 
@@ -132,9 +153,12 @@ export default {
         name:'',
         sex:'',
         age:''
-      }
+      },
+      pageSize:5,
+      total:50,
     }
-  }
+  },
+
 }
 </script>
 
