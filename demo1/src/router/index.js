@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
-import {parseHeight} from "element-ui/packages/table/src/util";
+import Manager from "../views/Manager/Manager";
 
 //解决路由重复问题
 const originPush = VueRouter.prototype.push
@@ -20,6 +20,25 @@ const routes = [
     path: '/login',
     name: 'login',
     component: () => import ("@/views/Login/Login")
+  },
+  {
+    path: '/manager',
+    name: 'manager',
+    component: Manager,
+    children: [
+      {
+        path:"/manager",
+        name:"teamAdd",
+        component:() => import("@/views/Manager/TeamAdd"),
+      },
+      {
+        path:"/person",
+        name:"person",
+        component:() => import("@/views/Manager/Person"),
+      }
+
+
+    ]
   },
 
   {

@@ -61,10 +61,13 @@ export default {
   },
   methods:{
     UserLogin(){
+      alert(this.radio)
       switch (this.radio){
         case 3:{
+          this.$router.push({name:"home"});
           axios.post("login/team",  this.loginForm)
               .then(response => {
+                this.$router.push({name:"mainPage"})
                 if(response.data.error_code === 0)
                 {
                   localStorage.setItem("user",this.loginForm.user)
@@ -74,9 +77,11 @@ export default {
                   alert("登录失败");
                 }
 
-              })
+              });
+          break;
         }
         case 6:{
+          this.$router.push({name:"teamAdd"});
           axios.post("login/admin", this.loginForm )
               .then(response => {
 
@@ -88,12 +93,13 @@ export default {
                 else{
                   alert("登录失败");
                 }
-              })
+              });
+          break;
         }
         case 9:{
           axios.post("login/judger", this.loginForm )
               .then(response => {
-
+                this.$router.push({name:"mainPage"})
                 if(response.data.error_code === 0)
                 {
                   localStorage.setItem("user",this.loginForm.user)
