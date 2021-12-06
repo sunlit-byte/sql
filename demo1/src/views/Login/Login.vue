@@ -61,28 +61,41 @@ export default {
   },
   methods:{
     UserLogin(){
-      alert(this.radio)
       switch (this.radio){
         case 3:{
-          this.$router.push({name:"home"});
-          axios.post("login/team",  this.loginForm)
-              .then(response => {
-                this.$router.push({name:"mainPage"})
-                if(response.data.error_code === 0)
-                {
-                  localStorage.setItem("user",this.loginForm.user)
-                  this.$router.push({name:"mainPage"})
-                }
-                else{
-                  alert("登录失败");
-                }
-
-              });
+          alert(this.radio)
+          this.$http.post('/login/team',this.loginForm).then(
+              response =>{
+                alert(this.loginForm);
+                      if(response.data.error_code === 0)
+                      {
+                        localStorage.setItem("user",this.loginForm.user)
+                        this.$router.push({name:"mainPage"})
+                      }
+                      else{
+                        alert("登录失败");
+                      }
+              }).catch(error =>{
+                console.log(error)
+          })
+          // axios.post("http://localhost:8888/login/team",  this.loginForm)
+          //     .then(response => {
+          //       alert(this.loginForm);
+          //       if(response.data.error_code === 0)
+          //       {
+          //         localStorage.setItem("user",this.loginForm.user)
+          //         this.$router.push({name:"mainPage"})
+          //       }
+          //       else{
+          //         alert("登录失败");
+          //       }
+          //
+          //     });
           break;
         }
         case 6:{
           this.$router.push({name:"teamAdd"});
-          axios.post("login/admin", this.loginForm )
+          this.$http.post("login/admin", this.loginForm )
               .then(response => {
 
                 if(response.data.error_code === 0)
@@ -97,7 +110,7 @@ export default {
           break;
         }
         case 9:{
-          axios.post("login/judger", this.loginForm )
+          this.$http.post("login/judger", this.loginForm )
               .then(response => {
                 this.$router.push({name:"mainPage"})
                 if(response.data.error_code === 0)

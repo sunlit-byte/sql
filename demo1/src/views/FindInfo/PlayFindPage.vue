@@ -103,7 +103,7 @@ export default {
       data.age = this.formSearch.age;
 
 
-      axios.get("/showPlayers",{
+      this.$http.get("/showPlayers",{
         params:data
       })
       .then(response => {

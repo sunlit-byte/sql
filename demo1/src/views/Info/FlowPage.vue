@@ -201,7 +201,7 @@ export default {
     submitForm1() {
       this.$refs["form1"].validate((valid) => {
         if (valid) {
-          axios.post("/addLeader", this.form1 )
+          this.$http.post("/addLeader", this.form1 )
               .then(response => {
                 return true;
               })
@@ -214,7 +214,7 @@ export default {
     submitForm2() {
       this.$refs["form2"].validate((valid) => {
         if (valid) {
-          axios.post("/addCoach", this.form2 )
+          this.$http.post("/addCoach", this.form2 )
               .then(response => {
                 return true;
               })
@@ -227,7 +227,7 @@ export default {
     submitForm3() {
       this.$refs["form3"].validate((valid) => {
         if (valid) {
-          axios.post("/addDoctor", this.form3)
+          this.$http.post("/addDoctor", this.form3)
               .then(response => {
                 return true;
               })
@@ -240,7 +240,7 @@ export default {
     submitForm4() {
       this.$refs["form4"].validate((valid) => {
         if (valid) {
-          axios.post("/addJudger", this.form4 )
+          this.$http.post("/addJudger", this.form4 )
               .then(response => {
                 return true;
               })

@@ -55,7 +55,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post("/addTeam", this.teamForm )
+          this.$http.post("/addTeam", this.teamForm )
               .then(response => {
                 return true;
               })

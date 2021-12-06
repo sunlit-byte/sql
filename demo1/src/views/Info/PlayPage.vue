@@ -65,7 +65,7 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          axios.post("/addPlayer", this.playForm )
+          this.$http.post("/addPlayer", this.playForm )
               .then(response => {
                 return true;
               })
