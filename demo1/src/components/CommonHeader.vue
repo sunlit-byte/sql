@@ -15,7 +15,6 @@
       </span>
       <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="login">退出登录</el-dropdown-item>
-      <el-dropdown-item command="changePassword">修改密码</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -37,6 +36,7 @@ export default {
       this.$store.commit("collapseMenu");
     },
     handleCommand(command){
+      localStorage.clear();
       this.$router.push({name:command});
     }
   },

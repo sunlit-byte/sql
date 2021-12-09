@@ -15,8 +15,8 @@
           <el-form-item label="年龄" prop="age">
             <el-input v-model="playForm.age"></el-input>
           </el-form-item>
-          <el-form-item label="身份证号" prop="card_id">
-            <el-input v-model.number="playForm.card_id"></el-input>
+          <el-form-item label="身份证号" prop="id_card">
+            <el-input v-model.number="playForm.id_card"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('playForm')">添加</el-button>
@@ -37,7 +37,7 @@ export default {
         name:'',
         sex:'',
         age:'',
-        card_id:'',
+        id_card:'',
         team_id:localStorage.getItem('user')
       },
       rules:{
@@ -53,7 +53,7 @@ export default {
           {required:true,message:"请输入年龄", trigger:'blur'},
           {type:'enum', enum:['9','10','11','12'],message: "年龄范围为9-12",trigger: "blur"}
         ],
-        card_id:[
+        id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
           { type: 'number', message: '身份证号必须为数字值'}
         ],

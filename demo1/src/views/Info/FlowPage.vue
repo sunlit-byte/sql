@@ -12,11 +12,11 @@
         <el-form-item label="性别" prop="sex">
           <el-input v-model="form1.sex"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号" prop="card_id">
-          <el-input v-model.number="form1.card_id"></el-input>
+        <el-form-item label="身份证号" prop="id_card">
+          <el-input v-model.number="form1.id_card"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="tel">
-          <el-input v-model.number="form1.tel"></el-input>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="form1.phone"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm1">添加</el-button>
@@ -35,11 +35,11 @@
         <el-form-item label="性别" prop="sex">
           <el-input v-model="form2.sex"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号" prop="card_id">
-          <el-input v-model.number="form2.card_id"></el-input>
+        <el-form-item label="身份证号" prop="id_card">
+          <el-input v-model.number="form2.id_card"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="tel">
-          <el-input v-model.number="form2.tel"></el-input>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="form2.phone"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm2">添加</el-button>
@@ -62,11 +62,11 @@
           <el-form-item label="性别" prop="sex">
             <el-input v-model="form3.sex"></el-input>
           </el-form-item>
-        <el-form-item label="身份证号" prop="card_id">
-          <el-input v-model.number="form3.card_id"></el-input>
+        <el-form-item label="身份证号" prop="id_card">
+          <el-input v-model.number="form3.id_card"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="tel">
-          <el-input v-model.number="form3.tel"></el-input>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="form3.phone"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm3">添加</el-button>
@@ -86,11 +86,11 @@
         <el-form-item label="性别" prop="sex">
           <el-input v-model="form4.sex"></el-input>
         </el-form-item>
-        <el-form-item label="身份证号" prop="card_id">
-          <el-input v-model.number="form4.card_id"></el-input>
+        <el-form-item label="身份证号" prop="id_card">
+          <el-input v-model.number="form4.id_card"></el-input>
         </el-form-item>
-        <el-form-item label="电话" prop="tel">
-          <el-input v-model.number="form4.tel"></el-input>
+        <el-form-item label="电话" prop="phone">
+          <el-input v-model.number="form4.phone"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm4">添加</el-button>
@@ -110,29 +110,29 @@ export default {
       form1:{
         name:"",
         sex:"",
-        card_id:"",
-        tel:"",
+        id_card:"",
+        phone:"",
         team_id:localStorage.getItem('user')
       },
       form2:{
         name:"",
         sex:"",
-        card_id:"",
-        tel:"",
+        id_card:"",
+        phone:"",
         team_id:localStorage.getItem('user')
       },
       form3:{
         name:"",
         sex:"",
-        card_id:"",
-        tel:"",
+        id_card:"",
+        phone:"",
         team_id:localStorage.getItem('user')
       },
       form4:{
         name:"",
         sex:"",
-        card_id:"",
-        tel:"",
+        id_card:"",
+        phone:"",
         team_id:localStorage.getItem('user')
       },
       rules1:{
@@ -144,11 +144,11 @@ export default {
           {required:true, message:"请输入性别" ,trigger:'blur'},
           {type: 'enum',enum:['男','女'],message: '只能填男或女' ,trigger: "blur"}
         ],
-        card_id:[
+        id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
           { type: 'number', message: '身份证号必须为数字值'}
         ],
-        tel:[
+        phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
           { type: 'number', message: '电话必须为数字值'}
         ],
@@ -158,11 +158,11 @@ export default {
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
-        card_id:[
+        id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
           { type: 'number', message: '身份证号必须为数字值'}
         ],
-        tel:[
+        phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
           { type: 'number', message: '电话必须为数字值'}
         ],
@@ -172,11 +172,11 @@ export default {
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
-        card_id:[
+        id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
           { type: 'number', message: '身份证号必须为数字值'}
         ],
-        tel:[
+        phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
           { type: 'number', message: '电话必须为数字值'}
         ],
@@ -186,11 +186,11 @@ export default {
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
-        card_id:[
+        id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
           { type: 'number', message: '身份证号必须为数字值'}
         ],
-        tel:[
+        phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
           { type: 'number', message: '电话必须为数字值'}
         ],
@@ -201,9 +201,10 @@ export default {
     submitForm1() {
       this.$refs["form1"].validate((valid) => {
         if (valid) {
+          console.log(this.form1)
           this.$http.post("/addLeader", this.form1 )
               .then(response => {
-                return true;
+                console.log('success');
               })
         } else {
           console.log('error submit!!');

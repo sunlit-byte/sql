@@ -7,7 +7,7 @@
         <div class="r-context">
           <el-form :inline="true"  class="demo-form-inline" label-width="80px" :model="formSearch">
             <el-form-item label="编号">
-              <el-input  v-model="formSearch.id" placeholder="编号"></el-input>
+              <el-input  v-model="formSearch.player_id" placeholder="编号"></el-input>
             </el-form-item>
             <el-form-item label="姓名">
               <el-input  v-model="formSearch.name" placeholder="姓名"></el-input>
@@ -37,7 +37,7 @@
           border
           style="width: 100%">
         <el-table-column
-            prop="id"
+            prop="player_id"
             label="编号"
             width="160">
         </el-table-column>
@@ -57,7 +57,7 @@
             width="150">
         </el-table-column>
         <el-table-column
-            prop="card_id"
+            prop="id_card"
             label="身份证号"
             width="376">
         </el-table-column>
@@ -86,28 +86,39 @@
 </template>
 
 <script>
+import Qs from 'qs'
+import axios from "axios";
 export default {
   name: "PlayFindPage",
+  created(){
+    this.getData(1);
+  },
   methods: {
     handleClick(row) {
       console.log(row);
     },
     getData(currentPage){
-      let data ={};
-      data.team_id = localStorage.getItem("user");
-      data.page_size = this.pageSize;
-      data.page_index = currentPage;
-      data.player_id = this.formSearch.id;
-      data.name = this.formSearch.name;
-      data.sex = this.formSearch.sex;
-      data.age = this.formSearch.age;
 
 
-      this.$http.get("/showPlayers",{
-        params:data
-      })
+      this.formSearch.page_index=currentPage
+      // axios({
+      //   url:'http://localhost:8888/showPlayers',
+      //   method:'get',
+      //   params:data,
+      //   paramsSerializer:function (params){
+      //     return Qs.stringify(params,{arrayFormat:'indices'});
+      //   }
+      // })
+
+      console.log(this.formSearch)
+      axios.post("http://localhost:8888/showPlayers", this.formSearch
+        // paramsSerializer:function (params){
+        //   return Qs.stringify(params,{arrayFormat:'indices'})
+        // }
+      )
       .then(response => {
-        this.tableData = response.data.players;
+		  console.log(response.data)
+        this.tableData = response.data;
       })
     },
     page(currentPage){
@@ -116,43 +127,20 @@ export default {
     onSubmit(){
       this.getData(1);
     },
-    created(){
-      this.getData(1);
-    }
+
   },
 
   data() {
     return {
-      tableData: [{
-        id: '2016-05-02',
-        name: '王小虎',
-        sex: '上海',
-        age: '普陀区',
-        card_id: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        id: '2016-05-02',
-        name: '王小虎',
-        sex: '上海',
-        age: '普陀区',
-        card_id: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        id: '2016-05-02',
-        name: '王小虎',
-        sex: '上海',
-        age: '普陀区',
-        card_id: '上海市普陀区金沙江路 1518 弄',
-      }, {
-        id: '2016-05-02',
-        name: '王小虎',
-        sex: '上海',
-        age: '普陀区',
-        card_id: '上海市普陀区金沙江路 1518 弄',
-      }],
+      tableData: [],
       formSearch:{
-        id:'',
+        player_id:'',
         name:'',
-        sex:'',
-        age:''
+        age:'',
+		sex:'',
+        page_size:5,
+        page_index:'',
+        team_id:localStorage.getItem('user')
       },
       pageSize:5,
       total:50,

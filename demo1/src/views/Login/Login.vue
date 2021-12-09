@@ -63,21 +63,29 @@ export default {
     UserLogin(){
       switch (this.radio){
         case 3:{
-          alert(this.radio)
+
+          // // 测试代码
+          // localStorage.setItem("user",this.loginForm.user)
+          // this.$router.push({name:"mainPage"})
+
+          // 已测试代码，ok
           this.$http.post('/login/team',this.loginForm).then(
               response =>{
-                alert(this.loginForm);
-                      if(response.data.error_code === 0)
+                      if(response.data != -1)
                       {
-                        localStorage.setItem("user",this.loginForm.user)
+                        localStorage.setItem("user",response.data)
+                        this.$message("登陆成功")
                         this.$router.push({name:"mainPage"})
+
                       }
                       else{
-                        alert("登录失败");
+                        this.$message("登录失败");
                       }
               }).catch(error =>{
-                console.log(error)
+                this.$message('登录错误')
           })
+
+
           // axios.post("http://localhost:8888/login/team",  this.loginForm)
           //     .then(response => {
           //       alert(this.loginForm);
@@ -101,12 +109,15 @@ export default {
                 if(response.data.error_code === 0)
                 {
                   localStorage.setItem("user",this.loginForm.user)
+                  this.$message("登陆成功")
                   this.$router.push({name:"mainPage"})
                 }
                 else{
-                  alert("登录失败");
+                  this.$message("登录失败");
                 }
-              });
+              }).catch(error =>{
+                this.$message("登录错误")
+          });
           break;
         }
         case 9:{
@@ -116,12 +127,15 @@ export default {
                 if(response.data.error_code === 0)
                 {
                   localStorage.setItem("user",this.loginForm.user)
+                  this.$message("登陆成功")
                   this.$router.push({name:"mainPage"})
                 }
                 else{
-                  alert("登录失败");
+                  this.$message("登录失败");
                 }
-              })
+              }).catch(error=>{
+                this.$message('登陆错误');
+          })
         }
 
       }

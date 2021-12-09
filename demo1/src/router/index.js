@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Main from '../views/Main.vue'
-import Manager from "../views/Manager/Manager";
+import Manager from "../views/Manager/Manager"
+import Judge from '../views/Judge/Judge';
 
 //解决路由重复问题
 const originPush = VueRouter.prototype.push
@@ -84,6 +85,18 @@ const routes = [
     ],
     redirect: "/mainPage"
   },
+  {
+    path: '/judge',
+    name: 'judge',
+    component: Judge,
+    children: [
+      {
+        path:"/judge",
+        name:"mark",
+        component:() => import("@/views/Judge/Mark"),
+      }
+    ]
+  }
 
 ]
 
