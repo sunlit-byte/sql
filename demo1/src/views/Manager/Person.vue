@@ -9,25 +9,32 @@
       <el-col  :span="22" :offset="1">
         <el-card class="box-card">
           <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-            <el-form-item label="项目">
-              <el-select v-model="searchForm.game" placeholder="项目">
-                <el-option label="双杠" value="1"></el-option>
-                <el-option label="跳马" value="2"></el-option>
-                <el-option label="自由体操" value="3"></el-option>
+
+            <el-form-item label="性别">
+              <el-select v-model="sex" placeholder="性别" @change="changeSelect">
+                <el-option v-for="(item,index) in Sex"
+                :value = "item"
+                :key="index"
+                :label="item">
+                </el-option>
+
               </el-select>
             </el-form-item>
-            <el-form-item label="性别">
-              <el-select v-model="searchForm.sex" placeholder="性别">
-                <el-option label="男" value="man"></el-option>
-                <el-option label="女" value="woman"></el-option>
+            <el-form-item label="项目">
+              <el-select v-model="searchForm.project_id" placeholder="比赛项目" >
+                <el-option v-for="(item,index) in projectOptions" :key="index" :label="item.name" :value="item.project_id"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="年龄">
-              <el-select v-model="searchForm.age" placeholder="年龄">
+              <el-select v-model="age" placeholder="年龄" @change="changeAge">
                 <el-option label="7-8岁" value="1"></el-option>
                 <el-option label="9-10岁" value="2"></el-option>
                 <el-option label="11-12岁" value="3"></el-option>
               </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="onSubmit">查询</el-button>
+
             </el-form-item>
           </el-form>
         </el-card>
@@ -41,7 +48,13 @@
           </div>
           <el-checkbox-group v-model="checkedPlayers" :max="8">
             <div v-for="player in players" :key="player.id" class="text item">
-              <el-checkbox :label="player.id" :key="player.id">{{player.name}}</el-checkbox>
+              <el-checkbox :label="player.id" :key="player.id">
+                <div class="player">
+                  <span class="player_id">编号：{{player.id}}</span>
+                  <span class="player_name">姓名：{{player.name}}</span>
+                </div>
+              </el-checkbox>
+              <el-divider></el-divider>
             </div>
           </el-checkbox-group>
         </el-card>
@@ -53,7 +66,12 @@
           </div>
           <el-checkbox-group v-model="checkedJudgers" :max="5">
             <div v-for="judger in judgers" :key="judger.id" class="text item">
-              <el-checkbox :label="judger.id" :key="judger.id">{{judger.name}}</el-checkbox>
+              <el-checkbox :label="judger.id" :key="judger.id">
+                <div class="judger">
+                  <span class="judger_name">姓名：{{judger.name}}</span>
+                </div>
+              </el-checkbox>
+              <el-divider></el-divider>
             </div>
           </el-checkbox-group>
         </el-card>
@@ -64,7 +82,6 @@
             <span>时间</span>
           </div>
           <div class="block">
-            <span class="demonstration">默认</span>
             <el-date-picker
                 v-model="time"
                 type="datetime"
@@ -76,7 +93,7 @@
     </el-row>
     <el-row style="margin-top: 10px">
       <el-col :offset="21">
-        <el-button type="primary" @click="addGame">提交</el-button>
+        <el-button type="primary" @click="addGame" :disabled="!isChecked">提交</el-button>
       </el-col>
 
     </el-row>
@@ -90,10 +107,68 @@ export default {
   name: "Person",
   data(){
     return {
+      Sex:['男','女'],
+      project:{
+        '男':[
+            {
+              name:'单杠',
+              project_id:"1"
+            },
+          {
+            name:'双杠',
+            project_id:"2"
+          },
+          {
+            name:'吊环',
+            project_id:"3"
+          },
+          {
+            name:'跳马',
+            project_id:"4"
+          },
+          {
+            name:'自由体操',
+            project_id:"5"
+          },
+          {
+            name:'鞍马',
+            project_id:"6"
+          },
+          {
+            name:'蹦床',
+            project_id:"7"
+          },
+        ],
+        '女':[
+          {
+            name:'跳马',
+            project_id:'8',
+          },
+          {
+            name:'高低杠',
+            project_id:'9',
+          },
+          {
+            name:'平衡木',
+            project_id:'10',
+          },
+          {
+            name:'自由体操',
+            project_id:'11',
+          },
+          {
+            name:'蹦床',
+            project_id:'12',
+          }
+        ]
+      },
+      sex:'',
+      age:'',
+      projectOptions:[],
       searchForm:{
-        game:'',
-        sex:'',
-        age:'',
+        project_id:'',
+        left:'',
+        right:'',
       },
       players:[
         {
@@ -134,12 +209,90 @@ export default {
   },
   methods: {
     addGame(){
-      console.log(this.checkedPlayers + this.checkedJudgers + this.time);
+      let data = {}
+      data.player_id = this.checkedPlayers;
+      data.judger_id = this.checkedJudgers;
+      data.data = this.time;
+      this.deletePlayers(this.checkedPlayers)
+      this.$http.post('/admin/addGroup', data)
+      .then(response=>{
+        this.$message.success(" 添加成功");
+      }).catch(error =>{
+        this.$message.error("添加失败");
+      })
+    },
+
+    deletePlayers(checkedPlayers){
+      let _players = this.players
+      for(const i in checkedPlayers){
+        for(const item in _players){
+          if(_players[item].id == checkedPlayers[i])
+          {
+            _players.splice(Number(item),1);
+            break;
+          }
+        }
+      }
+      this.players = _players;
+
+    },
+    changeSelect(){
+      this.searchForm.project_id = '';
+      for(const k in this.Sex){
+        if(this.sex === this.Sex[k]){
+          this.projectOptions = this.project[this.sex]
+        }
+      }
+    },
+    changeAge(e)
+    {
+      console.log(e)
+      if(e == 3){
+        this.searchForm.left=11;
+        this.searchForm.right=12;
+      }
+      else if(e == 2){
+        this.searchForm.left=9;
+        this.searchForm.right=10;
+      }
+      else if(e == 1){
+        this.searchForm.left=7;
+        this.searchForm.right=8;
+      }
+
+
+    },
+    onSubmit(){
+      this.$http.post("/admin/findPlayers" ,this.searchForm)
+      .then(response =>{
+        this.$message({
+          message:'查询成功',
+          type:"success"
+        })
+        this.players = response.data.players;
+      }).catch(error =>{
+        this.$message.error("查询失败")
+      })
+    },
+    findJudger(){
+      this.$http.post('/admin/findJudgers',)
+      .then(response =>{
+        this.judgers = response.data.judgers;
+      })
+      .catch(error =>{
+        this.$message.error("出错了哦")
+      })
     }
   },
+  created() {
+    this.findJudger();
+  },
+
+
   computed:{
     isChecked:function (){
-      return 1
+      return this.searchForm.project_id !='' && this.searchForm.right !='' && this.searchForm.left !=''
+          && this.checkedPlayers != '' && this.checkedJudgers != '' && this.time != ''
     }
 
   }
@@ -158,8 +311,34 @@ export default {
 .inner{
   margin-top: 10px;
 }
-
 </style>
+<style lang="scss" scoped>
+.el-checkbox{
+  display: block;
+  width: 100%;
+}
+::v-deep .el-checkbox__label{
+  width: 100%;
+}
+
+.player{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  //justify-content: space-between;
+  justify-content: space-around;
+}
+.judger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  //justify-content: space-between;
+  justify-content: space-around;
+}
+</style>
+
 <style lang="scss" scoped>
 .el-form{
   display: flex;
@@ -200,6 +379,3 @@ export default {
 }
 </style>
 
-<style lang="scss" scoped>
-
-</style>

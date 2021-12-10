@@ -16,6 +16,9 @@ export default {
     handleClick(tab) {
       this.$router.push({name:tab.name});
     },
+  },
+  created() {
+    this.$router.push({name:this.activeName})
   }
 };
 </script>

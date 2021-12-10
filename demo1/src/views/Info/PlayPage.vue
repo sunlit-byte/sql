@@ -29,6 +29,8 @@
 </template>
 
 <script>
+
+import {validateIdNo} from '../../checked/checked';
 export default {
   name: "PlayPage",
   data(){
@@ -43,7 +45,7 @@ export default {
       rules:{
         name:[
           {required:true, message:"请输入姓名", trigger:'blur'},
-          {min:2,max:5,message: "长度在3到5之间", trigger: 'blur'}
+          {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
         sex:[
           {required:true, message:"请输入性别" ,trigger:'blur'},
@@ -51,11 +53,11 @@ export default {
         ],
         age:[
           {required:true,message:"请输入年龄", trigger:'blur'},
-          {type:'enum', enum:['9','10','11','12'],message: "年龄范围为9-12",trigger: "blur"}
+          {type:'enum', enum:['7','8','9','10','11','12'],message: "年龄范围为7-12",trigger: "blur"}
         ],
         id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
-          { type: 'number', message: '身份证号必须为数字值'}
+          {  validator: validateIdNo, trigger: 'blur'}
         ],
 
       }
@@ -67,11 +69,16 @@ export default {
         if (valid) {
           this.$http.post("/addPlayer", this.playForm )
               .then(response => {
-                return true;
+                this.$message({
+                  message:'添加成功',
+                  type:'success'
+                })
               })
         } else {
-          console.log('error submit!!');
-          return false;
+          this.$message({
+            message:'添加失败',
+            type:'error'
+          })
         }
       });
     },

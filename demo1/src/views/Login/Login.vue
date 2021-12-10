@@ -74,15 +74,20 @@ export default {
                       if(response.data != -1)
                       {
                         localStorage.setItem("user",response.data)
-                        this.$message("登陆成功")
-                        this.$router.push({name:"mainPage"})
-
+                        this.$message({
+                          message:"登陆成功",
+                          type:"success"
+                        })
+                        this.$router.push({name:"mainPage"} )
                       }
                       else{
-                        this.$message("登录失败");
+                        this.$message({
+                          message:"登录失败",
+                          type:'error'
+                        });
                       }
               }).catch(error =>{
-                this.$message('登录错误')
+                this.$message.error('登录错误')
           })
 
 
@@ -105,30 +110,24 @@ export default {
           this.$router.push({name:"teamAdd"});
           this.$http.post("login/admin", this.loginForm )
               .then(response => {
-
-                if(response.data.error_code === 0)
-                {
                   localStorage.setItem("user",this.loginForm.user)
                   this.$message("登陆成功")
-                  this.$router.push({name:"mainPage"})
-                }
-                else{
-                  this.$message("登录失败");
-                }
+                  this.$router.push({name:"teamAdd"})
               }).catch(error =>{
-                this.$message("登录错误")
+                this.$message.error("登录错误")
           });
           break;
         }
         case 9:{
+          this.$router.push({name:"mark"});
           this.$http.post("login/judger", this.loginForm )
               .then(response => {
-                this.$router.push({name:"mainPage"})
-                if(response.data.error_code === 0)
+                this.$router.push({name:"mark"});
+                if(response.data != -1)
                 {
-                  localStorage.setItem("user",this.loginForm.user)
+                  localStorage.setItem("id_card",response.data)
                   this.$message("登陆成功")
-                  this.$router.push({name:"mainPage"})
+                  this.$router.push({name:"mark"});
                 }
                 else{
                   this.$message("登录失败");

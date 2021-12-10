@@ -57,11 +57,12 @@ export default {
         if (valid) {
           this.$http.post("/addTeam", this.teamForm )
               .then(response => {
+                this.$message.success("添加成功")
+                this.teamForm = '';
                 return true;
-              })
-        } else {
-          console.log('error submit!!');
-          return false;
+              }).catch(error =>{
+                this.$message.error("添加失败");
+          })
         }
       });
     },

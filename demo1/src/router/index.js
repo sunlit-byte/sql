@@ -94,6 +94,11 @@ const routes = [
         path:"/judge",
         name:"mark",
         component:() => import("@/views/Judge/Mark"),
+      },
+      {
+        path:"/judge",
+        name:"judgeLeader",
+        component:() => import("@/views/Judge/JudgeLeader"),
       }
     ]
   }

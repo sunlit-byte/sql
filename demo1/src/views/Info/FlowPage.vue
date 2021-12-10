@@ -13,7 +13,7 @@
           <el-input v-model="form1.sex"></el-input>
         </el-form-item>
         <el-form-item label="身份证号" prop="id_card">
-          <el-input v-model.number="form1.id_card"></el-input>
+          <el-input v-model="form1.id_card"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model.number="form1.phone"></el-input>
@@ -36,7 +36,7 @@
           <el-input v-model="form2.sex"></el-input>
         </el-form-item>
         <el-form-item label="身份证号" prop="id_card">
-          <el-input v-model.number="form2.id_card"></el-input>
+          <el-input v-model="form2.id_card"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model.number="form2.phone"></el-input>
@@ -63,7 +63,7 @@
             <el-input v-model="form3.sex"></el-input>
           </el-form-item>
         <el-form-item label="身份证号" prop="id_card">
-          <el-input v-model.number="form3.id_card"></el-input>
+          <el-input v-model="form3.id_card"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model.number="form3.phone"></el-input>
@@ -87,7 +87,7 @@
           <el-input v-model="form4.sex"></el-input>
         </el-form-item>
         <el-form-item label="身份证号" prop="id_card">
-          <el-input v-model.number="form4.id_card"></el-input>
+          <el-input v-model="form4.id_card"></el-input>
         </el-form-item>
         <el-form-item label="电话" prop="phone">
           <el-input v-model.number="form4.phone"></el-input>
@@ -103,6 +103,7 @@
 </template>
 
 <script>
+import {validateIdNo} from '../../checked/checked';
 export default {
   name: "FlowPage",
   data(){
@@ -140,13 +141,10 @@ export default {
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
-        sex:[
-          {required:true, message:"请输入性别" ,trigger:'blur'},
-          {type: 'enum',enum:['男','女'],message: '只能填男或女' ,trigger: "blur"}
-        ],
+
         id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
-          { type: 'number', message: '身份证号必须为数字值'}
+          { validator: validateIdNo, trigger: 'blur'}
         ],
         phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
@@ -158,9 +156,13 @@ export default {
           {required:true, message:"请输入姓名", trigger:'blur'},
           {min:2,max:5,message: "长度在2到5之间", trigger: 'blur'}
         ],
+        sex:[
+          {required:true, message:"请输入性别" ,trigger:'blur'},
+          {type: 'enum',enum:['男','女'],message: '只能填男或女' ,trigger: "blur"}
+        ],
         id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
-          { type: 'number', message: '身份证号必须为数字值'}
+          { validator: validateIdNo, trigger: 'blur'}
         ],
         phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
@@ -174,7 +176,7 @@ export default {
         ],
         id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
-          { type: 'number', message: '身份证号必须为数字值'}
+          { validator: validateIdNo, trigger: 'blur'}
         ],
         phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
@@ -188,7 +190,7 @@ export default {
         ],
         id_card:[
           {required:true, message:"请输入身份证号", trigger:'blur'},
-          { type: 'number', message: '身份证号必须为数字值'}
+          { validator: validateIdNo, trigger: 'blur'}
         ],
         phone:[
           {required:true, message:"请输入联系电话", trigger:'blur'},
@@ -204,11 +206,16 @@ export default {
           console.log(this.form1)
           this.$http.post("/addLeader", this.form1 )
               .then(response => {
-                console.log('success');
+                this.$message({
+                  message:'添加成功',
+                  type:'success'
+                })
               })
         } else {
-          console.log('error submit!!');
-          return false;
+          this.$message({
+            message:'添加失败',
+            type:'error'
+          })
         }
       });
     },
@@ -217,11 +224,16 @@ export default {
         if (valid) {
           this.$http.post("/addCoach", this.form2 )
               .then(response => {
-                return true;
+                this.$message({
+                  message:'添加成功',
+                  type:'success'
+                })
               })
         } else {
-          console.log('error submit!!');
-          return false;
+          this.$message({
+            message:'添加失败',
+            type:'error'
+          })
         }
       });
     },
@@ -230,11 +242,16 @@ export default {
         if (valid) {
           this.$http.post("/addDoctor", this.form3)
               .then(response => {
-                return true;
+                this.$message({
+                  message:'添加成功',
+                  type:'success'
+                })
               })
         } else {
-          console.log('error submit!!');
-          return false;
+          this.$message({
+            message:'添加失败',
+            type:'error'
+          })
         }
       });
     },
@@ -243,11 +260,16 @@ export default {
         if (valid) {
           this.$http.post("/addJudger", this.form4 )
               .then(response => {
-                return true;
+                this.$message({
+                  message:'添加成功',
+                  type:'success'
+                })
               })
         } else {
-          console.log('error submit!!');
-          return false;
+          this.$message({
+            message:'添加失败',
+            type:'error'
+          })
         }
       });
     },
